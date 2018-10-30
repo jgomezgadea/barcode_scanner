@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robotnik_barcode_scanner</name>
+  <version>1.0.0</version>
+  <description>The barcode_scanner package, writes the barcode scanner input in a topic </description>
+  <license>BSD</license>
+
+  <author email="jgomez@robotnik.es">Jose Gómez</author>
+
+  <maintainer email="jgomez@robotnik.es">Jose Gómez</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+</package>

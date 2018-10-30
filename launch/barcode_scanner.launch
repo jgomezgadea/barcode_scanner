@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+	<node pkg="robotnik_barcode_scanner" type="barcode_scanner.py" name="barcode_scanner" output="screen">
+		<!-- general args -->
+		<param name="topic" value="barcode_scanner"/>
+		<param name="input_device" value="/dev/input/barcode_scanner"/>
+	</node>
+</launch>

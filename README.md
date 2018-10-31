@@ -2,7 +2,7 @@
 
 ## Params
 * port (string)
- * default: /dev/input/barcode_scanner
+  * default: /dev/input/barcode_scanner
 * topic (string)
   * default: barcode_scanner
 
@@ -19,7 +19,7 @@ roslaunch robotnik_barcode_scanner barcode_scanner.launch
 ```
 
 ## Installation instructions
-See where the device "BarCode WPM" is:
+- See where the device "BarCode WPM" is:
   ```
   lsusb
   ```

@@ -3,8 +3,9 @@
 
 import rospy
 import evdev
+import datetime
 from evdev import InputDevice, categorize, ecodes
-from std_msgs.msg import String
+from std_msgs.msg import Header
 
 '''
   See where is the device "BarCode WPM ..."
@@ -36,12 +37,14 @@ class BarCodeScanner:
 
   def __init__(self, args):
     self.topic = args['topic']
-    self.input_device = args['input_device']
-    self.dev = InputDevice(self.input_device)
+    self.port = args['port']
+    self.dev = InputDevice(self.port)
+    self.seq = 0
+    self.init_time = datetime.datetime.now()
     rospy.loginfo(self.dev)
 
     # Create publisher
-    self.pub = rospy.Publisher(self.topic, String, queue_size=10)
+    self.pub = rospy.Publisher(self.topic, Header, queue_size=10)
 
   def scanBarcode(self):
     barcode = ''
@@ -61,8 +64,13 @@ class BarCodeScanner:
               if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
                 if data.scancode == 28: #looking return key to be pressed
                   #rospy.loginfo(barcode)
-                  msg = String()
-                  msg.data = barcode
+                  msg = Header()
+                  msg.seq = self.seq
+                  self.seq = self.seq + 1
+                  time_diff = datetime.datetime.now() - self.init_time
+                  msg.stamp.secs = time_diff.seconds
+                  msg.stamp.nsecs = time_diff.microseconds * 1000
+                  msg.frame_id = barcode
                   self.pub.publish(msg)
                   barcode = ''
                 else:
@@ -80,7 +88,7 @@ if __name__ == "__main__":
 
   arg_defaults = {
     'topic': 'barcode_scanner',
-    'input_device': '/dev/input/barcode_scanner'
+    'port': '/dev/input/barcode_scanner'
   }
   
   args = {}

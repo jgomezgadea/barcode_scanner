@@ -14,9 +14,9 @@
 
 ## Bringup
 
-'''
+```
 roslaunch robotnik_barcode_scanner barcode_scanner.launch
-'''
+```
 
 ## Installation instructions
 See where the device "BarCode WPM" is:
